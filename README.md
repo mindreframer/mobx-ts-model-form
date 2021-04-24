@@ -130,15 +130,15 @@ export function RegistrationComponent() {
 Сами узлы можно складывать в древовидном стиле. Поддерживается любой уровень вложенности, но обычно все начинается в FormGroup.
 
 ```
-FormGroup
--- FormControl
--- FormControl
--- -- FormGroup
--- -- FormArray
--- -- -- FormGroup
--- -- --  -- FormControl
--- -- FormArray
--- -- --  FormControl
+- FormGroup
+  - FormControl
+  - FormControl
+  - FormGroup
+    - FormArray
+      - FormGroup
+        - FormControl
+      - FormArray
+        - FormControl
 ```
 
 Каждый объект класса поддерживает следующий набор опций при определении:
