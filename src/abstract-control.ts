@@ -183,6 +183,11 @@ export abstract class AbstractControl {
   abstract setTouched(touched: boolean): this;
 
   /**
+   * Returns a datastructure fully representing controls value
+   */
+  abstract getValue(): any;
+
+  /**
    * Field for transferring additional information
    * / Поле для передачи дополнительной информации (в логике не участвует) 
    */
