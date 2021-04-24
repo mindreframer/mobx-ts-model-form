@@ -1,5 +1,7 @@
 import { action, computed, makeObservable } from 'mobx';
-import { AbstractControl, ControlTypes, FormControl } from './internal';
+import { AbstractControl } from './abstract-control';
+import { FormControl } from './form-control';
+import { ControlTypes } from './types';
 
 export abstract class FormAbstractGroup extends AbstractControl {
   get processing(): boolean {
