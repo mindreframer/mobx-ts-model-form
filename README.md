@@ -1,4 +1,4 @@
-# mobx-form-validation-kit
+# mobx-ts-model-form
 
 [![Version](https://img.shields.io/npm/v/@quantumart/mobx-form-validation-kit?style=flat)](https://www.npmjs.com/package/@quantumart/mobx-form-validation-kit)
 ![CI Workflow](https://github.com/mindreframer/mobx-form-validation-kit/actions/workflows/ci.yml/badge.svg?branch=master)

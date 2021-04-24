@@ -1,5 +1,5 @@
 {
-  "name": "@mindreframer/mobx-form-model",
+  "name": "mobx-ts-model-form",
   "version": "1.0.0",
   "description": "mobx typescript form control validation (fork from https://github.com/QuantumArt/mobx-form-validation-kit)",
   "main": "dist/index.js",
@@ -14,10 +14,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/mindreframer/mobx-form-model"
+    "url": "https://github.com/mindreframer/mobx-ts-model-form"
   },
   "bugs": {
-    "url": "https://github.com/mindreframer/mobx-form-model/issues"
+    "url": "https://github.com/mindreframer/mobx-ts-model-form/issues"
   },
   "author": "Vitalii Alferov (company: http://quantumart.ru/)",
   "license": "MIT",
