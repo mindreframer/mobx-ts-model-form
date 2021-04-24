@@ -2,7 +2,7 @@ type Method<T> = (sender: T) => void;
 export class Delegate<T> {
   private funcs: Method<T>[] = [];
   public addListen = (method: Method<T>) => {
-    if (!this.funcs.some(m => m === method)) {
+    if (!this.funcs.some((m) => m === method)) {
       this.funcs.push(method);
     }
   };

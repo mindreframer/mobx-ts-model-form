@@ -1,13 +1,6 @@
 import { makeAutoObservable, makeObservable, observable, runInAction } from 'mobx';
 import { ControlsCollection, FormArray, FormControl, FormGroup, ValidationEvent, ValidationEventTypes } from './internal';
-import {
-  maxValueValidator,
-  minValueValidator,
-  patternValidator,
-  requiredValidator,
-  wrapperActivateValidation,
-  wrapperSequentialCheck,
-} from './validators';
+import { maxValueValidator, minValueValidator, patternValidator, requiredValidator, wrapperActivateValidation, wrapperSequentialCheck } from './validators';
 
 describe('FormControl', () => {
   it('should not call setter when initialized by default', async () => {
@@ -74,7 +67,7 @@ describe('FormControl', () => {
 
     expect(form.controls.field.value).toEqual('test');
 
-    runInAction(() => model.field = 'qwerty');
+    runInAction(() => (model.field = 'qwerty'));
     await form.wait();
 
     expect(form.controls.field.value).toEqual('qwerty');
@@ -89,12 +82,12 @@ describe('FormControl', () => {
       field: new FormControl<string>(() => model.field, {
         validators: [requiredValidator()],
         onChangeValidValue: setter,
-        callSetterOnInitialize: false
+        callSetterOnInitialize: false,
       }),
     });
     await form.wait();
 
-    runInAction(() => model.field = 'qwerty');
+    runInAction(() => (model.field = 'qwerty'));
     await form.wait();
 
     expect(setter).not.toBeCalled();
@@ -113,21 +106,24 @@ describe('FormControl', () => {
       form?: FormGroup<IForm>;
       constructor() {
         makeObservable(this, {
-          form: observable
+          form: observable,
         });
-        runInAction(() => this.form = new FormGroup({
-          primaryField: new FormControl<string>('foo', {
-            validators: [requiredValidator()],
-            onChangeValidValue: primarySetter,
-            callSetterOnInitialize: false,
-          }),
-          dependentField: new FormControl<string>('bar', {
-            validators: [requiredValidator()],
-            onChangeValidValue: dependentSetter,
-            activate: () => (this.form && this.form.controls.primaryField.value === 'foo') ?? false,
-            callSetterOnInitialize: false,
-          }),
-        }));
+        runInAction(
+          () =>
+            (this.form = new FormGroup({
+              primaryField: new FormControl<string>('foo', {
+                validators: [requiredValidator()],
+                onChangeValidValue: primarySetter,
+                callSetterOnInitialize: false,
+              }),
+              dependentField: new FormControl<string>('bar', {
+                validators: [requiredValidator()],
+                onChangeValidValue: dependentSetter,
+                activate: () => (this.form && this.form.controls.primaryField.value === 'foo') ?? false,
+                callSetterOnInitialize: false,
+              }),
+            }))
+        );
       }
     }
 
@@ -152,22 +148,24 @@ describe('FormControl', () => {
       form?: FormGroup<IForm>;
       constructor() {
         makeObservable(this, {
-          form: observable
+          form: observable,
         });
-        runInAction(() =>
-          this.form = new FormGroup({
-            primaryField: new FormControl<number>(123, {
-              validators: [requiredValidator() as any],
-              onChangeValidValue: primarySetter,
-              callSetterOnInitialize: false,
-            }),
-            dependentField: new FormControl<string>('bar', {
-              validators: [requiredValidator()],
-              onChangeValidValue: dependentSetter,
-              activate: () => (this.form && this.form.controls.primaryField.value === 456) ?? false,
-              callSetterOnInitialize: false,
-            }),
-          }));
+        runInAction(
+          () =>
+            (this.form = new FormGroup({
+              primaryField: new FormControl<number>(123, {
+                validators: [requiredValidator() as any],
+                onChangeValidValue: primarySetter,
+                callSetterOnInitialize: false,
+              }),
+              dependentField: new FormControl<string>('bar', {
+                validators: [requiredValidator()],
+                onChangeValidValue: dependentSetter,
+                activate: () => (this.form && this.form.controls.primaryField.value === 456) ?? false,
+                callSetterOnInitialize: false,
+              }),
+            }))
+        );
       }
     }
 
@@ -184,25 +182,21 @@ describe('FormControl', () => {
   });
 
   it('test array', async () => {
-    const form = new FormArray(
-      [new FormControl<string>(''), new FormControl<string>('')],
-      {
-        validators:
-          [
-            async (array: FormArray<FormControl<string>>): Promise<ValidationEvent[]> => {
-              if (array.some(i => !!i.value)) {
-                return [
-                  {
-                    message: '',
-                    type: ValidationEventTypes.Error,
-                  },
-                ];
-              }
-              return [];
-            },
-          ]
-      },
-    );
+    const form = new FormArray([new FormControl<string>(''), new FormControl<string>('')], {
+      validators: [
+        async (array: FormArray<FormControl<string>>): Promise<ValidationEvent[]> => {
+          if (array.some((i) => !!i.value)) {
+            return [
+              {
+                message: '',
+                type: ValidationEventTypes.Error,
+              },
+            ];
+          }
+          return [];
+        },
+      ],
+    });
     await form.wait();
     expect(form.valid).toBe(true);
 
@@ -213,13 +207,9 @@ describe('FormControl', () => {
   });
 
   it('wrapper on array', async () => {
-    const form = new FormArray(
-      [new FormControl<string>(''), new FormControl<string>('')],
-      {
-        validators:
-          [wrapperSequentialCheck([wrapperActivateValidation(() => true, [])])]
-      },
-    );
+    const form = new FormArray([new FormControl<string>(''), new FormControl<string>('')], {
+      validators: [wrapperSequentialCheck([wrapperActivateValidation(() => true, [])])],
+    });
 
     await form.wait();
 
@@ -229,7 +219,7 @@ describe('FormControl', () => {
   it('minValue and maxValue', async () => {
     const form = new FormGroup({
       count: new FormControl<number>(0, {
-        validators: [minValueValidator<number>(1, 'Должна быть оценка'), maxValueValidator<number>(5, 'Должна быть оценка')]
+        validators: [minValueValidator<number>(1, 'Должна быть оценка'), maxValueValidator<number>(5, 'Должна быть оценка')],
       }),
     });
 
@@ -253,14 +243,14 @@ describe('FormControl', () => {
     const component = new Component();
     const form = new FormGroup({
       str: new FormControl<string>('', {
-        validators: [wrapperActivateValidation(() => component.activateValidation, [requiredValidator()])]
+        validators: [wrapperActivateValidation(() => component.activateValidation, [requiredValidator()])],
       }),
     });
 
     await form.wait();
     expect(form.valid).toBe(true);
 
-    runInAction(() => component.activateValidation = true);
+    runInAction(() => (component.activateValidation = true));
 
     await form.wait();
     expect(form.valid).toBe(false);
@@ -269,10 +259,7 @@ describe('FormControl', () => {
   it('wrapper sequential check', async () => {
     const form = new FormGroup({
       date: new FormControl<string | null>('10.10.1010', {
-        validators: [
-          wrapperSequentialCheck([requiredValidator(), patternValidator(/^\d\d.\d\d.\d\d\d\d$/, 'Введите дату в формате "дд.мм.гггг"')]
-          ),
-        ]
+        validators: [wrapperSequentialCheck([requiredValidator(), patternValidator(/^\d\d.\d\d.\d\d\d\d$/, 'Введите дату в формате "дд.мм.гггг"')])],
       }),
     });
 
@@ -291,7 +278,7 @@ describe('FormControl', () => {
     });
 
     await form.wait();
-    expect(form.map(e => e).length).toBe(2);
+    expect(form.map((e) => e).length).toBe(2);
     expect(form.allControls().length).toBe(2);
 
     expect(form.valid).toBe(true);

@@ -9,7 +9,7 @@ export class InputFormControl {
       onChange?(event: React.ChangeEvent<HTMLInputElement>): void;
       onBlur?(event: React.FocusEvent<HTMLInputElement>): void;
       onFocus?(event: React.FocusEvent<HTMLInputElement>): void;
-    },
+    }
   ) {
     return {
       ref: (element: HTMLInputElement): void => {
@@ -49,7 +49,7 @@ export class TextAreaFormControl {
       onChange?(event: React.ChangeEvent<HTMLTextAreaElement>): void;
       onBlur?(event: React.FocusEvent<HTMLTextAreaElement>): void;
       onFocus?(event: React.FocusEvent<HTMLTextAreaElement>): void;
-    },
+    }
   ) {
     return {
       ref: (element: HTMLTextAreaElement): void => {

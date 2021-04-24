@@ -3,30 +3,30 @@ import { AbstractControl, ControlTypes, FormControl } from './internal';
 
 export abstract class FormAbstractGroup extends AbstractControl {
   get processing(): boolean {
-    return this.inProcessing || this.abbreviatedOR(control => control.processing);
+    return this.inProcessing || this.abbreviatedOR((control) => control.processing);
   }
 
   get invalid(): boolean {
-    return this.active && (this.errors.length > 0 || this.serverErrors.length > 0 || this.abbreviatedOR(control => control.invalid));
+    return this.active && (this.errors.length > 0 || this.serverErrors.length > 0 || this.abbreviatedOR((control) => control.invalid));
   }
 
   get dirty(): boolean {
-    return this.abbreviatedOR(control => control.dirty);
+    return this.abbreviatedOR((control) => control.dirty);
   }
 
   get touched(): boolean {
-    return this.abbreviatedOR(control => control.touched);
+    return this.abbreviatedOR((control) => control.touched);
   }
 
   get focused(): boolean {
-    return this.abbreviatedOR(control => control.focused);
+    return this.abbreviatedOR((control) => control.focused);
   }
 
   constructor(
     /**
-    * Function enable validation by condition (always enabled by default)
-    * / Функция включение валидаций по условию (по умолчанию включено всегда)
-    */
+     * Function enable validation by condition (always enabled by default)
+     * / Функция включение валидаций по условию (по умолчанию включено всегда)
+     */
     activate: (() => boolean) | null = null,
     additionalData: any,
     type: ControlTypes
@@ -38,18 +38,18 @@ export abstract class FormAbstractGroup extends AbstractControl {
       dirty: computed,
       touched: computed,
       focused: computed,
-      
+
       setDirty: action,
       setTouched: action,
 
-      allControls: action
+      allControls: action,
     });
   }
 
   /**
-  * Set marker "Value has changed" 
-  * / Установить маркер "Значение изменилось"
-  */
+   * Set marker "Value has changed"
+   * / Установить маркер "Значение изменилось"
+   */
   public setDirty = (dirty: boolean) => {
     for (const control of this.getControls()) {
       control.setDirty(dirty);
@@ -58,7 +58,7 @@ export abstract class FormAbstractGroup extends AbstractControl {
   };
 
   /**
-   * Set marker "field was in focus" 
+   * Set marker "field was in focus"
    * / Установить маркер "Поле было в фокусе"
    */
   public setTouched = (touched: boolean) => {

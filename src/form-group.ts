@@ -6,7 +6,7 @@ export interface IOptionsFormGroup<TControls extends ControlsCollection> {
    * Validations
    * Валидациии
    */
-  validators?: ValidatorsFunction<FormGroup<TControls>>[],
+  validators?: ValidatorsFunction<FormGroup<TControls>>[];
   /**
    * Additional information
    * Блок с дополнительной информацией
@@ -36,11 +36,11 @@ export class FormGroup<TControls extends ControlsCollection = ControlsCollection
      * Options
      * / Опции
      */
-    options: IOptionsFormGroup<TControls> = {},
+    options: IOptionsFormGroup<TControls> = {}
   ) {
     super(options.activate ?? null, options.additionalData, ControlTypes.Group);
     makeObservable<FormGroup<TControls>, 'checkGroupValidations'>(this, {
-      checkGroupValidations: action
+      checkGroupValidations: action,
     });
 
     this.controls = controls;
@@ -52,7 +52,7 @@ export class FormGroup<TControls extends ControlsCollection = ControlsCollection
         this.serverErrors = [];
         this.checkGroupValidations();
         this.onChange.call(this);
-      },
+      }
     );
 
     for (const control of this.getControls()) {
@@ -94,7 +94,7 @@ export class FormGroup<TControls extends ControlsCollection = ControlsCollection
   private checkGroupValidations = () => {
     this.inProcessing = true;
     this.serverErrors = [];
-    this.onValidation(this.validators, this.checkGroupValidations, () => this.inProcessing = false)
+    this.onValidation(this.validators, this.checkGroupValidations, () => (this.inProcessing = false));
   };
 
   public runInAction(action: () => void): void {
@@ -104,5 +104,5 @@ export class FormGroup<TControls extends ControlsCollection = ControlsCollection
         () => this.checkGroupValidations()
       )
     );
-  };
+  }
 }

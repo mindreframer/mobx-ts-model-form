@@ -3,19 +3,19 @@ import { AbstractControl, ControlTypes, FormAbstractGroup, ValidationEvent, Vali
 
 export interface IOptionsFormArray<TAbstractControl extends AbstractControl> {
   /**
-    * Validations
-    * Валидациии
-    */
-  validators?: ValidatorsFunction<FormArray<TAbstractControl>>[],
+   * Validations
+   * Валидациии
+   */
+  validators?: ValidatorsFunction<FormArray<TAbstractControl>>[];
   /**
-    * Additional information
-    * Блок с дополнительной информацией
-    */
+   * Additional information
+   * Блок с дополнительной информацией
+   */
   additionalData?: any;
   /**
-    * Function enable validation by condition (always enabled by default)
-    * / Функция включение валидаций по условию (по умолчанию включено всегда)
-    */
+   * Function enable validation by condition (always enabled by default)
+   * / Функция включение валидаций по условию (по умолчанию включено всегда)
+   */
   activate?: (() => boolean) | null;
 }
 
@@ -32,15 +32,15 @@ export class FormArray<TAbstractControl extends AbstractControl> extends FormAbs
 
   constructor(
     /**
-      * Сontrols
-      * / Контролы
-      */
+     * Сontrols
+     * / Контролы
+     */
     controls: TAbstractControl[],
     /**
      * Options
      * / Опции
      */
-    options: IOptionsFormArray<TAbstractControl> = {},
+    options: IOptionsFormArray<TAbstractControl> = {}
   ) {
     super(options.activate ?? null, options.additionalData, ControlTypes.Array);
     makeObservable<FormArray<TAbstractControl>, 'controls' | 'checkArrayValidations'>(this, {
@@ -66,7 +66,7 @@ export class FormArray<TAbstractControl extends AbstractControl> extends FormAbs
       () => {
         this.checkArrayValidations();
         this.onChange.call(this);
-      },
+      }
     );
 
     for (const control of this.controls) {
@@ -81,7 +81,7 @@ export class FormArray<TAbstractControl extends AbstractControl> extends FormAbs
   }
 
   public getValue() {
-    return this.map(item => item.getValue());
+    return this.map((item) => item.getValue());
   }
 
   public get(index: number): TAbstractControl {
@@ -102,7 +102,7 @@ export class FormArray<TAbstractControl extends AbstractControl> extends FormAbs
   private checkArrayValidations = () => {
     this.inProcessing = true;
     this.serverErrors = [];
-    this.onValidation(this.validators, this.checkArrayValidations, () => this.inProcessing = false);
+    this.onValidation(this.validators, this.checkArrayValidations, () => (this.inProcessing = false));
   };
 
   public runInAction(action: () => void): void {
@@ -112,7 +112,7 @@ export class FormArray<TAbstractControl extends AbstractControl> extends FormAbs
         () => this.checkArrayValidations()
       )
     );
-  };
+  }
 
   /**
    * Removes the last element from an array and returns it.
@@ -267,7 +267,7 @@ export class FormArray<TAbstractControl extends AbstractControl> extends FormAbs
    */
   public reduce = <U = TAbstractControl>(
     callbackfn: (previousValue: U, currentValue: TAbstractControl, currentIndex: number, array: TAbstractControl[]) => U,
-    initialValue: U,
+    initialValue: U
   ): U => {
     return this.controls.reduce(callbackfn, initialValue);
   };
@@ -277,10 +277,7 @@ export class FormArray<TAbstractControl extends AbstractControl> extends FormAbs
    * @param callbackfn A function that accepts up to four arguments. The reduceRight method calls the callbackfn function one time for each element in the array.
    * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
    */
-  public reduceRight = <U>(
-    callbackfn: (previousValue: U, currentValue: TAbstractControl, currentIndex: number, array: TAbstractControl[]) => U,
-    initialValue: U,
-  ): U => {
+  public reduceRight = <U>(callbackfn: (previousValue: U, currentValue: TAbstractControl, currentIndex: number, array: TAbstractControl[]) => U, initialValue: U): U => {
     return this.controls.reduceRight(callbackfn, initialValue);
   };
 

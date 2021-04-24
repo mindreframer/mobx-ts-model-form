@@ -2,7 +2,7 @@ import { action, computed, IReactionDisposer, makeObservable, observable, reacti
 import { combineErrors, ControlTypes, Delegate, IDictionary, noop, ValidationEvent, ValidationEventTypes } from './internal';
 
 export type UpdateValidValueHandler<TEntity> = (val: TEntity) => void;
-export type ValidatorsFunction<TAbstractControl extends AbstractControl> = (control: TAbstractControl) => Promise<ValidationEvent[]>
+export type ValidatorsFunction<TAbstractControl extends AbstractControl> = (control: TAbstractControl) => Promise<ValidationEvent[]>;
 export type ControlsCollection = IDictionary<AbstractControl>;
 
 export abstract class AbstractControl {
@@ -189,7 +189,7 @@ export abstract class AbstractControl {
 
   /**
    * Field for transferring additional information
-   * / Поле для передачи дополнительной информации (в логике не участвует) 
+   * / Поле для передачи дополнительной информации (в логике не участвует)
    */
   public additionalData: any;
 
@@ -230,7 +230,7 @@ export abstract class AbstractControl {
 
       additionalData: observable,
 
-      onValidation: action
+      onValidation: action,
     });
 
     this.inProcessing = false;
@@ -255,7 +255,7 @@ export abstract class AbstractControl {
    * / Получить ошибку по ключу
    */
   public error = (key: string): ValidationEvent | undefined => {
-    return this.errors.find(err => err.key === key);
+    return this.errors.find((err) => err.key === key);
   };
 
   private newRequestValidation: number = 0;
@@ -266,7 +266,7 @@ export abstract class AbstractControl {
   protected onValidation = async <TAbstractControl extends AbstractControl>(
     validators: ValidatorsFunction<TAbstractControl>[],
     onValidationFunction: () => void,
-    afterCheck: () => void,
+    afterCheck: () => void
   ): Promise<void> => {
     const haveRequestValidation: boolean = this.newRequestValidation !== 0;
     this.newRequestValidation++;
@@ -279,12 +279,12 @@ export abstract class AbstractControl {
     let oldRequestValidation = 0;
     do {
       oldRequestValidation = this.newRequestValidation;
-      this.reactionOnValidatorDisposers.forEach(r => r());
+      this.reactionOnValidatorDisposers.forEach((r) => r());
       this.reactionOnValidatorDisposers = [];
       if (this.active) {
-        const errorsPromises = this.lastValidators.map(validator => {
+        const errorsPromises = this.lastValidators.map((validator) => {
           let isFirstReaction = true;
-          return new Promise<ValidationEvent[]>(resolve =>
+          return new Promise<ValidationEvent[]>((resolve) =>
             this.reactionOnValidatorDisposers.push(
               reaction(() => {
                 let result;
@@ -293,8 +293,8 @@ export abstract class AbstractControl {
                 }
                 isFirstReaction = false;
                 return result;
-              }, this.lastValidationFunction),
-            ),
+              }, this.lastValidationFunction)
+            )
           );
         });
         groupErrors = await Promise.all(errorsPromises);
@@ -305,10 +305,10 @@ export abstract class AbstractControl {
     this.newRequestValidation = 0;
     const events = groupErrors && groupErrors.length > 0 ? combineErrors(groupErrors) : [];
     runInAction(() => {
-      this.errors = events.filter(e => e.type === ValidationEventTypes.Error);
-      this.warnings = events.filter(e => e.type === ValidationEventTypes.Warning);
-      this.informationMessages = events.filter(e => e.type === ValidationEventTypes.Info);
-      this.successes = events.filter(e => e.type === ValidationEventTypes.Success);
+      this.errors = events.filter((e) => e.type === ValidationEventTypes.Error);
+      this.warnings = events.filter((e) => e.type === ValidationEventTypes.Warning);
+      this.informationMessages = events.filter((e) => e.type === ValidationEventTypes.Info);
+      this.successes = events.filter((e) => e.type === ValidationEventTypes.Success);
 
       afterCheck();
     });
@@ -326,12 +326,9 @@ export abstract class AbstractControl {
 
   public abstract runInAction(action: () => void): void;
 
-  protected baseExecuteAsyncValidation = (
-    validator: (control: this) => Promise<ValidationEvent[]>,
-    onValidationFunction: () => void,
-  ): Promise<ValidationEvent[]> => {
+  protected baseExecuteAsyncValidation = (validator: (control: this) => Promise<ValidationEvent[]>, onValidationFunction: () => void): Promise<ValidationEvent[]> => {
     let isFirstReaction = true;
-    return new Promise<ValidationEvent[]>(resolve =>
+    return new Promise<ValidationEvent[]>((resolve) =>
       this.reactionOnValidatorDisposers.push(
         reaction(() => {
           let result;
@@ -340,8 +337,8 @@ export abstract class AbstractControl {
           }
           isFirstReaction = false;
           return result;
-        }, onValidationFunction),
-      ),
+        }, onValidationFunction)
+      )
     );
   };
 }

@@ -122,7 +122,7 @@ export class FormControl<TEntity = string> extends AbstractControl {
      * Options
      * / Опции
      */
-    options: OptionsFormControl<TEntity> = {},
+    options: OptionsFormControl<TEntity> = {}
   ) {
     super(options.activate ?? null, options.additionalData, ControlTypes.Control);
     makeObservable<FormControl<TEntity>, 'internalValue' | 'isDirty' | 'isTouched' | 'isFocused' | 'checkInternalValue'>(this, {
@@ -164,7 +164,7 @@ export class FormControl<TEntity = string> extends AbstractControl {
         }
         this.isInitializedActived = true;
         this.onChange.call(this);
-      },
+      }
     );
 
     this.reactionOnIsDirtyDisposer = reaction(
@@ -173,7 +173,7 @@ export class FormControl<TEntity = string> extends AbstractControl {
         if (isDirty) {
           this.serverErrors = [];
         }
-      },
+      }
     );
 
     this.reactionOnIsFocusedDisposer = reaction(
@@ -182,7 +182,7 @@ export class FormControl<TEntity = string> extends AbstractControl {
         if (!isFocused) {
           this.serverErrors = [];
         }
-      },
+      }
     );
 
     this.setInitialValue(valueOrGetter);
@@ -195,7 +195,7 @@ export class FormControl<TEntity = string> extends AbstractControl {
 
     this.reactionOnValueGetterDisposer = reaction(
       valueGetter,
-      initialValue => {
+      (initialValue) => {
         this.reactionOnInternalValueDisposer && this.reactionOnInternalValueDisposer();
         this.internalValue = initialValue;
         this.reactionOnInternalValueDisposer = reaction(
@@ -206,13 +206,13 @@ export class FormControl<TEntity = string> extends AbstractControl {
             this.serverErrors = [];
             this.onChange.call(this);
             this.checkInternalValue(true);
-          },
+          }
         );
         this.onChange.call(this);
         this.checkInternalValue(this.isInitialized ? this.callSetterOnReinitialize : this.callSetterOnInitialize);
         this.isInitializedValue = true;
       },
-      { fireImmediately: true },
+      { fireImmediately: true }
     );
 
     return this;
@@ -226,16 +226,16 @@ export class FormControl<TEntity = string> extends AbstractControl {
     this.baseExecuteAsyncValidation(validator, () => this.checkInternalValue(true));
 
   /**
-  * Set marker "Value has changed" 
-  * / Установить маркер "Значение изменилось"
-  */
+   * Set marker "Value has changed"
+   * / Установить маркер "Значение изменилось"
+   */
   public setDirty = (dirty: boolean) => {
     this.isDirty = dirty;
     return this;
   };
 
   /**
-   * Set marker "field was in focus" 
+   * Set marker "field was in focus"
    * / Установить маркер "Поле было в фокусе"
    */
   public setTouched = (touched: boolean) => {
@@ -261,19 +261,23 @@ export class FormControl<TEntity = string> extends AbstractControl {
     this.reactionOnValidatorDisposers.push(
       reaction(
         () => action(),
-        () => this.checkInternalValue(true),
-      ),
+        () => this.checkInternalValue(true)
+      )
     );
-  };
+  }
 
   private checkInternalValue = (shouldCallSetter: boolean) => {
     this.inProcessing = true;
     this.serverErrors = [];
-    this.onValidation(this.validators, () => this.checkInternalValue(true), () => {
-      if (shouldCallSetter && this.setValidValue && this.errors.length === 0) {
-        this.setValidValue(this.internalValue);
+    this.onValidation(
+      this.validators,
+      () => this.checkInternalValue(true),
+      () => {
+        if (shouldCallSetter && this.setValidValue && this.errors.length === 0) {
+          this.setValidValue(this.internalValue);
+        }
+        this.inProcessing = false;
       }
-      this.inProcessing = false;
-    });
+    );
   };
 }
