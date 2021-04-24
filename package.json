@@ -1,7 +1,7 @@
 {
-  "name": "@quantumart/mobx-form-validation-kit",
-  "version": "6.0.2",
-  "description": "mobx typescript form control validation",
+  "name": "@mindreframer/mobx-form-model",
+  "version": "1.0.0",
+  "description": "mobx typescript form control validation (fork from https://github.com/QuantumArt/mobx-form-validation-kit)",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -14,10 +14,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/QuantumArt/mobx-form-validation-kit"
+    "url": "https://github.com/mindreframer/mobx-form-model"
   },
   "bugs": {
-    "url": "https://github.com/QuantumArt/mobx-form-validation-kit/issues"
+    "url": "https://github.com/mindreframer/mobx-form-model/issues"
   },
   "author": "Vitalii Alferov (company: http://quantumart.ru/)",
   "license": "MIT",
