@@ -1,6 +1,6 @@
 {
   "name": "mobx-ts-model-form",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "mobx typescript form control validation (fork from https://github.com/QuantumArt/mobx-form-validation-kit)",
   "main": "dist/index.js",
   "module": "dist/index.js",
