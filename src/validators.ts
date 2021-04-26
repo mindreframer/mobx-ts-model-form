@@ -4,7 +4,7 @@ import { ValidationEvent, ValidationEventTypes } from './types';
 import { combineErrors } from './utilites';
 
 export const requiredValidatorKey = 'required';
-export const requiredValidator = <TEntity>(message: string = 'Поле обязательно', eventType = ValidationEventTypes.Error): ValidatorsFunction<FormControl<TEntity>> => async (
+export const requiredValidator = <TEntity>(message: string = 'Field required', eventType = ValidationEventTypes.Error): ValidatorsFunction<FormControl<TEntity>> => async (
   control: FormControl<TEntity>
 ): Promise<ValidationEvent[]> => {
   if (control.value == null || ((control.value as any) as string) === '') {
@@ -20,7 +20,7 @@ export const requiredValidator = <TEntity>(message: string = 'Поле обяз�
 };
 
 export const notEmptyOrSpacesValidatorKey = 'notEmptyOrSpaces';
-export const notEmptyOrSpacesValidator = (message: string = 'Отсутствует значение', eventType = ValidationEventTypes.Error): ValidatorsFunction<FormControl<string>> => async (
+export const notEmptyOrSpacesValidator = (message: string = 'Missing meaningful input', eventType = ValidationEventTypes.Error): ValidatorsFunction<FormControl<string>> => async (
   control: FormControl<string> | FormControl<string | null>
 ): Promise<ValidationEvent[]> => {
   if (control.value != null && control.value.trim() !== '') {
@@ -40,7 +40,7 @@ export const notContainSpacesValidatorKey = 'notContainSpaces';
  * Not contain spaces
  * / Не содержит проблелов
  */
-export const notContainSpacesValidator = (message: string = 'Не должен содержать пробелы', eventType = ValidationEventTypes.Error) => async (
+export const notContainSpacesValidator = (message: string = 'Must not contain spaces', eventType = ValidationEventTypes.Error) => async (
   control: FormControl<string> | FormControl<string | null>
 ): Promise<ValidationEvent[]> => {
   if (control.value == null || !/\s/.test(control.value)) {
@@ -62,7 +62,7 @@ export const patternValidatorKey = 'pattern';
  */
 export const patternValidator = <TAbstractControl extends FormControl<string> | FormControl<string | null>>(
   regExp: RegExp,
-  message: string = 'Присутствуют недопустимые символы',
+  message: string = 'Does not match required pattern',
   eventType = ValidationEventTypes.Error
 ): ValidatorsFunction<TAbstractControl> => async (control: TAbstractControl): Promise<ValidationEvent[]> => {
   if (control.value != null && regExp.test(control.value)) {
@@ -83,7 +83,7 @@ export const patternValidator = <TAbstractControl extends FormControl<string> | 
  */
 export const invertPatternValidator = <TAbstractControl extends FormControl<string> | FormControl<string | null>>(
   regExp: RegExp,
-  message: string = 'Присутствуют недопустимые символы',
+  message: string = 'Matches a restricted pattern',
   eventType = ValidationEventTypes.Error
 ): ValidatorsFunction<TAbstractControl> => async (control: TAbstractControl): Promise<ValidationEvent[]> => {
   if (control.value != null && regExp.test(control.value)) {
@@ -101,7 +101,7 @@ export const invertPatternValidator = <TAbstractControl extends FormControl<stri
 export const minLengthValidatorKey = 'minlength';
 export const minLengthValidator = (
   minlength: number,
-  message: string = `Минимальная длина ${minlength}`,
+  message: string = `Minimal length ${minlength}`,
   eventType = ValidationEventTypes.Error
 ): ValidatorsFunction<FormControl> => async (control: FormControl<string> | FormControl<string | null>): Promise<ValidationEvent[]> => {
   if (control.value == null || minlength <= control.value.length || control.value === '') {
@@ -119,7 +119,7 @@ export const minLengthValidator = (
 export const maxLengthValidatorKey = 'maxlength';
 export const maxLengthValidator = (
   maxlength: number,
-  message: string = `Максимальная длина ${maxlength}`,
+  message: string = `Maximal length ${maxlength}`,
   eventType = ValidationEventTypes.Error
 ): ValidatorsFunction<FormControl> => async (control: FormControl<string> | FormControl<string | null>): Promise<ValidationEvent[]> => {
   if (control.value == null || control.value.length <= maxlength) {
@@ -137,7 +137,7 @@ export const maxLengthValidator = (
 export const absoluteLengthValidatorKey = 'absoluteLength';
 export const absoluteLengthValidator = (
   length: number,
-  message: string = `Длина отлична от ${length}`,
+  message: string = `Length not ${length}`,
   eventType = ValidationEventTypes.Error
 ): ValidatorsFunction<FormControl> => async (control: FormControl): Promise<ValidationEvent[]> => {
   if (control.value == null || control.value.length === length) {
@@ -155,7 +155,7 @@ export const absoluteLengthValidator = (
 export const minValueValidatorKey = 'minValue';
 export const minValueValidator = <TEntity extends string | null | number | Date>(
   min: TEntity | (() => TEntity),
-  message: string = 'Значение слишком маленькое',
+  message: string = 'Value too small',
   eventType = ValidationEventTypes.Error
 ) => {
   const getMin: () => TEntity = typeof min === 'function' ? min : () => min;
@@ -188,7 +188,7 @@ export const minValueValidator = <TEntity extends string | null | number | Date>
 export const maxValueValidatorKey = 'minValue';
 export const maxValueValidator = <TEntity extends string | null | number | Date>(
   max: TEntity | (() => TEntity),
-  message: string = 'Значение слишком большое',
+  message: string = 'Value too big',
   eventType = ValidationEventTypes.Error
 ) => {
   const getMax: () => TEntity = typeof max === 'function' ? max : () => max;
@@ -225,7 +225,7 @@ export const compairValidatorKey = 'compair';
  */
 export const compareValidator = <TEntity>(
   expression: (value: TEntity) => boolean,
-  message: string = 'Поле не валидно',
+  message: string = 'Field not valid',
   eventType = ValidationEventTypes.Error
 ): ValidatorsFunction<FormControl<TEntity>> => async (control: FormControl<TEntity>): Promise<ValidationEvent[]> => {
   if (expression(control.value)) {
@@ -247,7 +247,7 @@ export const isEqualValidatorKey = 'isEqual';
  */
 export const isEqualValidator = <TEntity>(
   value: TEntity,
-  message: string = 'Поля не совпадают',
+  message: string = "Fields don't match",
   eventType = ValidationEventTypes.Error
 ): ValidatorsFunction<FormControl<TEntity>> => async (control: FormControl<TEntity>): Promise<ValidationEvent[]> => {
   if (control.value == null || control.value !== value) {

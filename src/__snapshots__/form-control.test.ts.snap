@@ -25,7 +25,7 @@ Object {
   "field2": Array [
     Object {
       "key": "required",
-      "message": "Поле обязательно",
+      "message": "Field required",
       "type": 0,
     },
   ],
@@ -34,7 +34,7 @@ Object {
     "field2": Array [
       Object {
         "key": "required",
-        "message": "Поле обязательно",
+        "message": "Field required",
         "type": 0,
       },
     ],
