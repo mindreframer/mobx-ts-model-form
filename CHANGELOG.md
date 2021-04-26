@@ -1,3 +1,7 @@
+## [1.0.7] - 2021-04-26
+
+- add `yarn release` script to simplify the release process
+
 ## [1.0.6] - 2021-04-26
 
 - add `FormArray.remove`, `FormArray.removeAt`, `FormArray.insertAt` functions + tests
