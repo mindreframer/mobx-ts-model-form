@@ -1,3 +1,7 @@
+## [1.0.3] - 2021-04-26
+
+- publish proper `dist` folder
+
 ## [1.0.2] - 2021-04-26
 
 - adds `getAllErrors()` for all controls
