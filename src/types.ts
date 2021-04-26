@@ -16,4 +16,5 @@ export interface ValidationEvent {
   message: string;
   type: ValidationEventTypes;
   additionalData?: any;
+  validationEvent: true;
 }

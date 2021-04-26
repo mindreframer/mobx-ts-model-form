@@ -190,6 +190,7 @@ describe('FormControl', () => {
               {
                 message: '',
                 type: ValidationEventTypes.Error,
+                validationEvent: true,
               },
             ];
           }
@@ -301,7 +302,7 @@ describe('FormControl', () => {
     expect(form.errors).toStrictEqual([]);
     expect(form.hasErrors()).toBe(false);
     // ... errors can be found on individual fields
-    expect(form.controls.field.errors).toStrictEqual([{ key: 'required', message: 'Field required', type: 0 }]);
+    expect(form.controls.field.errors).toStrictEqual([{ key: 'required', message: 'Field required', type: 0, validationEvent: true }]);
     // now fill in a value
     form.controls.field.value = 'test';
     form.controls.field2.value = 'test';

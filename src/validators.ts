@@ -13,6 +13,7 @@ export const requiredValidator = <TEntity>(message: string = 'Field required', e
         message,
         key: requiredValidatorKey,
         type: eventType,
+        validationEvent: true,
       },
     ];
   }
@@ -31,6 +32,7 @@ export const notEmptyOrSpacesValidator = (message: string = 'Missing meaningful 
       message,
       key: notEmptyOrSpacesValidatorKey,
       type: eventType,
+      validationEvent: true,
     },
   ];
 };
@@ -51,6 +53,7 @@ export const notContainSpacesValidator = (message: string = 'Must not contain sp
       message,
       key: notContainSpacesValidatorKey,
       type: eventType,
+      validationEvent: true,
     },
   ];
 };
@@ -73,6 +76,7 @@ export const patternValidator = <TAbstractControl extends FormControl<string> | 
       message,
       key: patternValidatorKey,
       type: eventType,
+      validationEvent: true,
     },
   ];
 };
@@ -92,6 +96,7 @@ export const invertPatternValidator = <TAbstractControl extends FormControl<stri
         message,
         key: patternValidatorKey,
         type: eventType,
+        validationEvent: true,
       },
     ];
   }
@@ -112,6 +117,7 @@ export const minLengthValidator = (
       message,
       key: minLengthValidatorKey,
       type: eventType,
+      validationEvent: true,
     },
   ];
 };
@@ -130,6 +136,7 @@ export const maxLengthValidator = (
       message,
       key: maxLengthValidatorKey,
       type: eventType,
+      validationEvent: true,
     },
   ];
 };
@@ -148,6 +155,7 @@ export const absoluteLengthValidator = (
       message,
       key: absoluteLengthValidatorKey,
       type: eventType,
+      validationEvent: true,
     },
   ];
 };
@@ -178,6 +186,7 @@ export const minValueValidator = <TEntity extends string | null | number | Date>
           message,
           key: minValueValidatorKey,
           type: eventType,
+          validationEvent: true,
         },
       ];
     }
@@ -211,6 +220,7 @@ export const maxValueValidator = <TEntity extends string | null | number | Date>
           message,
           key: maxValueValidatorKey,
           type: eventType,
+          validationEvent: true,
         },
       ];
     }
@@ -236,6 +246,7 @@ export const compareValidator = <TEntity>(
       message,
       key: compairValidatorKey,
       type: eventType,
+      validationEvent: true,
     },
   ];
 };
@@ -258,6 +269,7 @@ export const isEqualValidator = <TEntity>(
       message,
       key: isEqualValidatorKey,
       type: eventType,
+      validationEvent: true,
     },
   ];
 };

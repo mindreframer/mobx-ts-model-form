@@ -27,6 +27,7 @@ Object {
       "key": "required",
       "message": "Field required",
       "type": 0,
+      "validationEvent": true,
     },
   ],
   "subform": Object {
@@ -36,6 +37,7 @@ Object {
         "key": "required",
         "message": "Field required",
         "type": 0,
+        "validationEvent": true,
       },
     ],
   },

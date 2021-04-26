@@ -1,3 +1,7 @@
+## [1.0.4] - 2021-04-26
+
+- add `validationEvent: true;` to all ValidationEvents, to be able to differentiate errors from other fields in nested datastructures
+
 ## [1.0.3] - 2021-04-26
 
 - publish proper `dist` folder
