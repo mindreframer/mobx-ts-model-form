@@ -29,4 +29,39 @@ describe('FormArray', () => {
     array.splice(1, 0, newItem('2'));
     expect(array.getValue()).toStrictEqual(['1', '2', '3']);
   });
+
+  it('provides some extra functions for arrays', async () => {
+    const newItem = (v: string) => {
+      return new FormControl<string>(v);
+    };
+    const array = new FormArray([new FormControl<string>('1'), new FormControl<string>('2')], {});
+    array.insertAt(1, newItem('3'));
+    expect(array.getValue()).toStrictEqual(['1', '3', '2']);
+    array.remove(array.get(1));
+    expect(array.getValue()).toStrictEqual(['1', '2']);
+
+    array.removeAt(1);
+    expect(array.getValue()).toStrictEqual(['1']);
+    array.removeAt(1);
+    expect(array.getValue()).toStrictEqual(['1']);
+  });
+
+  describe('removeAt', () => {
+    it('works gracefully for out-of-bounds positions', () => {
+      const array = new FormArray([new FormControl<string>('1'), new FormControl<string>('2')], {});
+
+      // remove second item
+      array.removeAt(1);
+      expect(array.getValue()).toStrictEqual(['1']);
+
+      // does not fail on out-of-range indicies
+      array.removeAt(10);
+      array.removeAt(-1);
+      expect(array.getValue()).toStrictEqual(['1']);
+
+      // remove last present item
+      array.removeAt(0);
+      expect(array.getValue()).toStrictEqual([]);
+    });
+  });
 });

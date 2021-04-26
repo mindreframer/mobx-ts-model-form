@@ -190,12 +190,49 @@ export class FormArray<TAbstractControl extends AbstractControl> extends FormAbs
    * Removes elements from an array and, if necessary, inserts new elements in their place, returning the deleted elements.
    * @param start The zero-based location in the array from which to start removing elements.
    * @param deleteCount The number of elements to remove.
+   * @param item The item(s) to insert
    */
   public splice = (start: number, deleteCount?: number, item?: TAbstractControl): TAbstractControl[] => {
     if (typeof deleteCount == 'number' && item) {
       return this.controls.splice(start, deleteCount, item);
     }
     return this.controls.splice(start, deleteCount);
+  };
+
+  /**
+   * Inserts an item at a given position
+   * (wrapper around `splice`)
+   * @param position The zero-based location in the array from which to start removing elements.
+   * @param item The item to insert
+   */
+  public insertAt = (position: number, item: TAbstractControl): TAbstractControl[] => {
+    return this.splice(position, 0, item);
+  };
+
+  /**
+   * Remove an item if present in array
+   * (wrapper around `splice`)
+   * @param item The item to remove
+   */
+  public remove = (item: TAbstractControl): TAbstractControl[] => {
+    const index = this.indexOf(item);
+    if (index > -1) {
+      return this.splice(index, 1);
+    }
+
+    return this.controls;
+  };
+
+  /**
+   * Remove an item
+   * (wrapper around `splice`)
+   * @param item The item to remove
+   */
+  public removeAt = (position: number): TAbstractControl[] => {
+    if (this.length - 1 > position) {
+      return this.controls;
+    }
+    return this.splice(position, 1);
   };
 
   /**

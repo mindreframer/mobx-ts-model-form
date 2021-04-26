@@ -1,3 +1,7 @@
+## [1.0.6] - 2021-04-26
+
+- add `FormArray.remove`, `FormArray.removeAt`, `FormArray.insertAt` functions + tests
+
 ## [1.0.5] - 2021-04-26
 
 - Allow insertion via `splice` on FormArrays
