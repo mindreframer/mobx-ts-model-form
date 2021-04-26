@@ -1,3 +1,7 @@
+## [1.0.8] - 2021-04-26
+
+- add `FormArray.swap`, to change order in array forms
+
 ## [1.0.7] - 2021-04-26
 
 - add `yarn release` script to simplify the release process

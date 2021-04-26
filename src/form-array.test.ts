@@ -64,4 +64,34 @@ describe('FormArray', () => {
       expect(array.getValue()).toStrictEqual([]);
     });
   });
+
+  describe('swap', () => {
+    it('swaps 2 items', () => {
+      const array = new FormArray([new FormControl<string>('1'), new FormControl<string>('2')], {});
+
+      // swap 0 <-> 1
+      array.swap(0, 1);
+      expect(array.getValue()).toStrictEqual(['2', '1']);
+      array.swap(0, 1);
+      expect(array.getValue()).toStrictEqual(['1', '2']);
+    });
+
+    it('ignores out-of-brange positions', () => {
+      const array = new FormArray([new FormControl<string>('1'), new FormControl<string>('2')], {});
+      array.swap(-1, 1);
+      expect(array.getValue()).toStrictEqual(['1', '2']);
+      array.swap(0, 2);
+      expect(array.getValue()).toStrictEqual(['1', '2']);
+    });
+
+    it('swaps 2 items in bigger arrays', () => {
+      const array = new FormArray([new FormControl<string>('1'), new FormControl<string>('2'), new FormControl<string>('3'), new FormControl<string>('4')], {});
+
+      // swap 0 <-> 1
+      array.swap(0, 1);
+      expect(array.getValue()).toStrictEqual(['2', '1', '3', '4']);
+      array.swap(0, 1);
+      expect(array.getValue()).toStrictEqual(['1', '2', '3', '4']);
+    });
+  });
 });

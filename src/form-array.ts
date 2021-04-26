@@ -236,6 +236,21 @@ export class FormArray<TAbstractControl extends AbstractControl> extends FormAbs
   };
 
   /**
+   * Swap two items
+   * @param indexA
+   * @param indexB
+   */
+  public swap = (indexA: number, indexB: number): TAbstractControl[] => {
+    if (indexA < 0 || indexB < 0 || indexA > this.length - 1 || indexB > this.length - 1) {
+      return this.controls;
+    }
+    var tmp = this.controls[indexA];
+    this.controls[indexA] = this.controls[indexB];
+    this.controls[indexB] = tmp;
+    return this.controls;
+  };
+
+  /**
    * Inserts new elements at the start of an array.
    * @param items  Elements to insert at the start of the Array.
    */
