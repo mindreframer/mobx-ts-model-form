@@ -191,7 +191,10 @@ export class FormArray<TAbstractControl extends AbstractControl> extends FormAbs
    * @param start The zero-based location in the array from which to start removing elements.
    * @param deleteCount The number of elements to remove.
    */
-  public splice = (start: number, deleteCount?: number): TAbstractControl[] => {
+  public splice = (start: number, deleteCount?: number, item?: TAbstractControl): TAbstractControl[] => {
+    if (typeof deleteCount == 'number' && item) {
+      return this.controls.splice(start, deleteCount, item);
+    }
     return this.controls.splice(start, deleteCount);
   };
 
