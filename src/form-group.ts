@@ -84,6 +84,14 @@ export class FormGroup<TControls extends ControlsCollection = ControlsCollection
     return res;
   };
 
+  public getAllErrors() {
+    const res = {} as any;
+    for (const keyName in this.controls) {
+      res[keyName] = this.controls[keyName].getAllErrors();
+    }
+    return res;
+  }
+
   public executeAsyncValidation = (validator: (control: this) => Promise<ValidationEvent[]>): Promise<ValidationEvent[]> =>
     this.baseExecuteAsyncValidation(validator, () => this.checkGroupValidations());
 

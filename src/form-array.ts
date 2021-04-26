@@ -86,6 +86,10 @@ export class FormArray<TAbstractControl extends AbstractControl> extends FormAbs
     return this.map((item) => item.getValue());
   }
 
+  public getAllErrors() {
+    return this.map((item) => item.getAllErrors());
+  }
+
   public get(index: number): TAbstractControl {
     return this.controls[index];
   }

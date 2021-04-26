@@ -191,6 +191,11 @@ export abstract class AbstractControl {
   abstract getValue(): any;
 
   /**
+   * Returns all errors as a nested data-structure
+   */
+  abstract getAllErrors(): any;
+
+  /**
    * Field for transferring additional information
    * / Поле для передачи дополнительной информации (в логике не участвует)
    */

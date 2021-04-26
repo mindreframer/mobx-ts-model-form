@@ -14,3 +14,30 @@ Object {
   },
 }
 `;
+
+exports[`FormControl getValue allows to get all values recursivelly 2`] = `
+Object {
+  "array": Array [
+    Array [],
+    Array [],
+  ],
+  "field": Array [],
+  "field2": Array [
+    Object {
+      "key": "required",
+      "message": "Поле обязательно",
+      "type": 0,
+    },
+  ],
+  "subform": Object {
+    "field": Array [],
+    "field2": Array [
+      Object {
+        "key": "required",
+        "message": "Поле обязательно",
+        "type": 0,
+      },
+    ],
+  },
+}
+`;

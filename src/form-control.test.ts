@@ -311,7 +311,7 @@ describe('FormControl', () => {
     expect(form.controls.field.errors).toStrictEqual([]);
   });
 
-  it('getValue allows to get all values recursivelly', () => {
+  it('getValue allows to get all values recursivelly', async () => {
     const subform = new FormGroup({
       field: new FormControl<string>('', {
         validators: [requiredValidator()],
@@ -339,5 +339,9 @@ describe('FormControl', () => {
     form.controls.subform.controls.field.value = 'sub-f1';
 
     expect(form.getValue()).toMatchSnapshot();
+    await form.wait();
+
+    expect(form.getAllErrors()).toMatchSnapshot();
+    console.log(form.valid);
   });
 });
