@@ -1,3 +1,7 @@
+## [1.0.5] - 2021-04-26
+
+- Allow insertion via `splice` on FormArrays
+
 ## [1.0.4] - 2021-04-26
 
 - add `validationEvent: true;` to all ValidationEvents, to be able to differentiate errors from other fields in nested datastructures
