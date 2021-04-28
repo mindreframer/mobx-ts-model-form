@@ -229,7 +229,10 @@ export class FormArray<TAbstractControl extends AbstractControl> extends FormAbs
    * @param item The item to remove
    */
   public removeAt = (position: number): TAbstractControl[] => {
-    if (this.length - 1 > position) {
+    if (position > this.length - 1) {
+      return this.controls;
+    }
+    if (position < 0) {
       return this.controls;
     }
     return this.splice(position, 1);

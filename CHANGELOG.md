@@ -1,3 +1,7 @@
+## [1.0.9] - 2021-04-28
+
+- fix `FormArray.removeAt` for positions less than the length of the array (duh...)
+
 ## [1.0.8] - 2021-04-26
 
 - add `FormArray.swap`, to change order in array forms
