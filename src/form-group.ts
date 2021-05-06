@@ -95,7 +95,7 @@ export class FormGroup<TControls extends ControlsCollection = ControlsCollection
   public executeAsyncValidation = (validator: (control: this) => Promise<ValidationEvent[]>): Promise<ValidationEvent[]> =>
     this.baseExecuteAsyncValidation(validator, () => this.checkGroupValidations());
 
-  protected *getControls(): IterableIterator<AbstractControl> {
+  public *getControls(): IterableIterator<AbstractControl> {
     for (const keyName in this.controls) {
       yield this.controls[keyName];
     }

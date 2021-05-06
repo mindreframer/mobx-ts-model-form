@@ -345,7 +345,7 @@ export class FormArray<TAbstractControl extends AbstractControl> extends FormAbs
     return this.controls.reduceRight(callbackfn, initialValue);
   };
 
-  protected *getControls(): IterableIterator<AbstractControl> {
+  public *getControls(): IterableIterator<AbstractControl> {
     for (const control of this.controls) {
       yield control;
     }

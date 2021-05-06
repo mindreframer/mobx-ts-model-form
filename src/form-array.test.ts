@@ -107,4 +107,13 @@ describe('FormArray', () => {
       expect(array.getValue()).toStrictEqual(['1', '2', '3', '4']);
     });
   });
+
+  describe('Iteratable interface is accessible', () => {
+    const array = new FormArray([new FormControl<string>('1'), new FormControl<string>('2'), new FormControl<string>('3'), new FormControl<string>('4')], {});
+    const values = [];
+    for (let control of array.getControls()) {
+      values.push(control.getValue());
+    }
+    expect(values).toStrictEqual(['1', '2', '3', '4']);
+  });
 });

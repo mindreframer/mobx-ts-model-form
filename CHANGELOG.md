@@ -1,3 +1,13 @@
+## [1.0.10] - 2021-05-06
+
+- un-protect `FormArray.getControls` for the iteratable interface
+
+```typescript
+for (let control of array.getControls()) {
+  values.push(control.getValue());
+}
+```
+
 ## [1.0.9] - 2021-04-28
 
 - fix `FormArray.removeAt` for positions less than the length of the array (duh...)

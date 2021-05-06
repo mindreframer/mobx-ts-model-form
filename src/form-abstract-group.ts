@@ -86,7 +86,15 @@ export abstract class FormAbstractGroup extends AbstractControl {
     return controls;
   }
 
-  protected abstract getControls(): IterableIterator<AbstractControl>;
+  /**
+   * Exposes the iterator interface
+   *
+   * @example
+   * for (const control of form.getControls()) {
+   *   control.dispose();
+   * }
+   */
+  public abstract getControls(): IterableIterator<AbstractControl>;
 
   protected abbreviatedAND = (getData: (control: AbstractControl) => boolean): boolean => {
     for (const control of this.getControls()) {
